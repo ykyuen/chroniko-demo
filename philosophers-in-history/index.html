@@ -4,7 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chroniko example</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.1.1/dist/chroniko.min.css">
+  <!-- Light mode favicons (fallback) -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light-32.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-light-180.png" media="(prefers-color-scheme: light)">
+  <!-- Dark mode favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-dark-32.ico" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Chroniko stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.2.1/dist/chroniko.min.css">
   <style>
     :root { color-scheme: light dark; }
     body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }
@@ -18,26 +29,83 @@
 </head>
 <body>
   <main>
-    <h1>Chroniko</h1>
+    <h1>Philosophers in history</h1>
     <p>Drag to pan; Ctrl/⌘ + scroll or pinch to zoom. Click events to add them to the story; click again to remove. Click a category to hide or show it. The address bar keeps your view and selection, so you can share it as a link.</p>
+    <div class="controls">
+      <label for="lang">Language</label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="yue">粵語</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+      </select>
+    </div>
     <div id="timeline"></div>
   </main>
 
   <script type="module">
-    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.1.1/dist/chroniko.min.js';
-    import { chineseDynasties } from './data/zh-Hant/chinese-dynasties.js';
-    import { easternPhilosophers } from './data/zh-Hant/eastern-philosophers.js';
-    import { westernEvents } from './data/zh-Hant/western-events.js';
-    import { westernPhilosophers } from './data/zh-Hant/western-philosophers.js';
+    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.2.1/dist/chroniko.min.js';
 
+    // en data
+    import { chineseDynasties } from './data/en/chinese-dynasties.js';
+    import { easternPhilosophers } from './data/en/eastern-philosophers.js';
+    import { westernEvents } from './data/en/western-events.js';
+    import { westernPhilosophers } from './data/en/western-philosophers.js';
+
+    // zh data
+    import { chineseDynasties as zhChineseDynasties} from './data/zh-Hant/chinese-dynasties.js';
+    import { easternPhilosophers as zhEasternPhilosophers} from './data/zh-Hant/eastern-philosophers.js';
+    import { westernEvents as zhWesternEvents} from './data/zh-Hant/western-events.js';
+    import { westernPhilosophers as zhWesternPhilosophers} from './data/zh-Hant/western-philosophers.js';
+
+    const enEvents = chineseDynasties.concat(easternPhilosophers, westernEvents, westernPhilosophers);
+    const zhEvents = zhChineseDynasties.concat(zhEasternPhilosophers, zhWesternEvents, zhWesternPhilosophers);
     const params = new URLSearchParams(location.search);
     const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
+    const language = params.get('lang') ?? 'zh-Hant';
+
+    // language switcher
+    const langSelect = document.querySelector('#lang');
+    langSelect.value = language;
+    langSelect.addEventListener('change', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('lang', langSelect.value);
+      location.assign(url);
+    });
+
+    // category labels
+    const categoryLabels = {
+      'zh-Hant': {
+        'chinese dynasty': '中國朝代',
+        'eastern philosopher': '東方哲學家',
+        'western events': '西方歷史事件',
+        'western philosopher': '西方哲學家'
+      },
+      'yue': {
+        'chinese dynasty': '中國朝代',
+        'eastern philosopher': '東方哲學家',
+        'western events': '西方歷史事件',
+        'western philosopher': '西方哲學家'
+      },
+    };
 
     window.timeline = new Chroniko('#timeline', {
-      events: chineseDynasties.concat(easternPhilosophers, westernEvents, westernPhilosophers),
+      events: (language === 'yue' || language === 'zh-Hant' || language === 'zh-Hans') ? zhEvents : enEvents,
       storyPosition,
+      language,
+      ...(categoryLabels[language] && { categoryLabels: categoryLabels[language] }),
       split: 0.7,
       syncUrl: true,
+      textSizeToggle: true,
       onSelectionChange: (events) => console.log('selection', events),
     });
   </script>

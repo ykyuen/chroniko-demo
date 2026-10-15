@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chroniko Demo</title>
+  <!-- Light mode favicons (fallback) -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light-32.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-light-180.png" media="(prefers-color-scheme: light)">
+  <!-- Dark mode favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-dark-32.ico" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }
+    main { max-width: 1200px; margin: 0 auto; }
+    .logo { display: block; width: 180px; height: 180px; margin: 0 0 16px; }
+    h1 { margin: 0 0 4px; }
+    p { margin: 0 0 16px; opacity: 0.7; }
+    .github { display: inline-block; margin-left: 4px; vertical-align: middle; line-height: 0; }
+    .github:hover { opacity: 0.7; }
+    .demos { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+    .demos li { border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+    .demos a { display: block; padding: 12px 0; color: inherit; text-decoration: none; }
+    .demos a:hover strong { text-decoration: underline; }
+    .demos span { display: block; margin-top: 2px; opacity: 0.7; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <main>
+    <picture>
+      <source srcset="images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+      <img class="logo" src="images/favicon-light-180.png" alt="Chroniko" width="180" height="180">
+    </picture>
+    <h1>Chroniko Demo</h1>
+    <p>Example timelines built with Chroniko. <a class="github" href="https://github.com/ykyuen/chroniko" target="_blank" rel="noopener" title="GitHub - Chroniko">
+      <picture>
+        <source srcset="images/github-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="images/github-light.svg" alt="GitHub - Chroniko" width="20" height="20">
+      </picture>
+    </a></p>
+
+    <ul class="demos">
+      <li>
+        <a href="philosophers-in-history/?lang=en" target="_blank">
+          <strong>Philosophers in history</strong>
+          <span>Eastern and western philosophers alongside Chinese dynasties and western historical events.</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
