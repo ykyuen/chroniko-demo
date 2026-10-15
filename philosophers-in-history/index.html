@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chroniko example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.1.1/dist/chroniko.min.css">
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }
+    main { margin: 0 auto; }
+    h1 { margin: 0 0 4px; }
+    p { margin: 0 0 16px; opacity: 0.7; }
+    .chroniko {
+      --ck-height: 960px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Chroniko</h1>
+    <p>Drag to pan; Ctrl/⌘ + scroll or pinch to zoom. Click events to add them to the story; click again to remove. Click a category to hide or show it. The address bar keeps your view and selection, so you can share it as a link.</p>
+    <div id="timeline"></div>
+  </main>
+
+  <script type="module">
+    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.1.1/dist/chroniko.min.js';
+    import { chineseDynasties } from './data/zh-Hant/chinese-dynasties.js';
+    import { easternPhilosophers } from './data/zh-Hant/eastern-philosophers.js';
+    import { westernEvents } from './data/zh-Hant/western-events.js';
+    import { westernPhilosophers } from './data/zh-Hant/western-philosophers.js';
+
+    const params = new URLSearchParams(location.search);
+    const storyPosition = params.get('story') === 'right' ? 'right' : 'below';
+
+    window.timeline = new Chroniko('#timeline', {
+      events: chineseDynasties.concat(easternPhilosophers, westernEvents, westernPhilosophers),
+      storyPosition,
+      split: 0.7,
+      syncUrl: true,
+      onSelectionChange: (events) => console.log('selection', events),
+    });
+  </script>
+</body>
+</html>

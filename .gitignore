@@ -1,0 +1,12 @@
+# windows
+Thumbs.db
+desktop.ini
+
+# mac
+.DS_Store
+.Spotlight-V100
+.Trashes
+._*
+
+# emacs
+.projectile
