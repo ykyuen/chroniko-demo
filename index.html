@@ -28,6 +28,8 @@
     .demos a { display: block; padding: 12px 0; color: inherit; text-decoration: none; }
     .demos a:hover strong { text-decoration: underline; }
     .demos span { display: block; margin-top: 2px; opacity: 0.7; font-size: 0.9em; }
+    .demos .features { margin-top: 6px; opacity: 0.6; font-size: 0.8em; }
+    .demos .features::before { content: 'Shows: '; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9em; }
   </style>
 </head>
 <body>
@@ -49,6 +51,14 @@
         <a href="philosophers-in-history/?lang=en">
           <strong>Philosophers in history</strong>
           <span>Eastern and western philosophers alongside Chinese dynasties and western historical events.</span>
+          <span class="features">The basics: categories, the story view, translated category labels and shareable links</span>
+        </a>
+      </li>
+      <li>
+        <a href="rationalism-vs-empiricism/?lang=en">
+          <strong>Rationalism vs empiricism</strong>
+          <span>The continental rationalists and the British empiricists in the debate over where knowledge comes from.</span>
+          <span class="features">Event tags with translated labels, and custom category colors</span>
         </a>
       </li>
     </ul>

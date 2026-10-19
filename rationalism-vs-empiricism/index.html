@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chroniko example</title>
+  <!-- Light mode favicons (fallback) -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light-32.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-light-180.png" media="(prefers-color-scheme: light)">
+  <!-- Dark mode favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-dark-32.ico" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Chroniko stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.3.1/dist/chroniko.min.css">
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }
+    main { margin: 0 auto; }
+    .home-link { display: inline-block; margin: 0 0 12px; color: inherit; opacity: 0.7; text-decoration: none; }
+    .home-link:hover { opacity: 1; text-decoration: underline; }
+    h1 { margin: 0 0 4px; }
+    p { margin: 0 0 16px; opacity: 0.7; }
+    .chroniko {
+      --ck-height: 960px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="home-link" href="../">← Back to home</a>
+    <h1>Rationalism vs empiricism</h1>
+    <p>Drag to pan; Ctrl/⌘ + scroll or pinch to zoom. Click events to add them to the story; click again to remove. Click a category to hide or show it, or click a tag to select every event of that school. The address bar keeps your view and selection, so you can share it as a link.</p>
+    <div class="controls">
+      <label for="lang">Language</label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="yue">粵語</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+      </select>
+    </div>
+    <div id="timeline"></div>
+  </main>
+
+  <script type="module">
+    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.3.1/dist/chroniko.min.js';
+
+    // en data
+    import { descartes } from './data/en/descartes.js';
+    import { spinoza } from './data/en/spinoza.js';
+    import { leibniz } from './data/en/leibniz.js';
+    import { johnLocke } from './data/en/john-lock.js';
+    import { georgeBerkeley } from './data/en/george-berkeley.js';
+    import { davidHume } from './data/en/david-hume.js';
+
+    // zh data
+    import { descartes as zhDescartes } from './data/zh-Hant/descartes.js';
+    import { spinoza as zhSpinoza } from './data/zh-Hant/spinoza.js';
+    import { leibniz as zhLeibniz } from './data/zh-Hant/leibniz.js';
+    import { johnLocke as zhJohnLocke } from './data/zh-Hant/john-lock.js';
+    import { georgeBerkeley as zhGeorgeBerkeley } from './data/zh-Hant/george-berkeley.js';
+    import { davidHume as zhDavidHume } from './data/zh-Hant/david-hume.js';
+
+    const enEvents = descartes.concat(spinoza, leibniz, johnLocke, georgeBerkeley, davidHume);
+    const zhEvents = zhDescartes.concat(zhSpinoza, zhLeibniz, zhJohnLocke, zhGeorgeBerkeley, zhDavidHume);
+    const params = new URLSearchParams(location.search);
+    const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
+    const language = params.get('lang') ?? 'zh-Hant';
+
+    // language switcher
+    const langSelect = document.querySelector('#lang');
+    langSelect.value = language;
+    langSelect.addEventListener('change', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('lang', langSelect.value);
+      location.assign(url);
+    });
+
+    // category labels
+    const zhCategoryLabels = {
+      'René Descartes': '笛卡兒',
+      'Baruch Spinoza': '斯賓諾莎',
+      'Gottfried Wilhelm Leibniz': '萊布尼茲',
+      'John Locke': '洛克',
+      'George Berkeley': '柏克萊',
+      'David Hume': '休謨'
+    };
+    const categoryLabels = {
+      'zh-Hant': zhCategoryLabels,
+      'yue': zhCategoryLabels,
+    };
+
+    // tag labels
+    const zhTagLabels = {
+      'rationalism': '理性主義',
+      'empiricism': '經驗主義'
+    };
+    const tagLabels = {
+      'zh-Hant': zhTagLabels,
+      'yue': zhTagLabels,
+    };
+
+    // warm colors for the rationalists, cool colors for the empiricists
+    const colors = {
+      'René Descartes': '#c0392b',
+      'Baruch Spinoza': '#d35400',
+      'Gottfried Wilhelm Leibniz': '#b7950b',
+      'John Locke': '#2471a3',
+      'George Berkeley': '#17a589',
+      'David Hume': '#7d3c98'
+    };
+
+    window.timeline = new Chroniko('#timeline', {
+      events: (language === 'yue' || language === 'zh-Hant' || language === 'zh-Hans') ? zhEvents : enEvents,
+      colors,
+      storyPosition,
+      language,
+      ...(categoryLabels[language] && { categoryLabels: categoryLabels[language] }),
+      ...(tagLabels[language] && { tagLabels: tagLabels[language] }),
+      split: 0.7,
+      syncUrl: true,
+      textSizeToggle: true,
+      onSelectionChange: (events) => console.log('selection', events),
+    });
+  </script>
+</body>
+</html>
