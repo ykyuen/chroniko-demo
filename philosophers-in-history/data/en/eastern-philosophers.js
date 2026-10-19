@@ -117,7 +117,7 @@ export const easternPhilosophers = [
   },
   {
     "id": "asanga",
-    "title": "無著 Asanga",
+    "title": "Asanga",
     "start": 300,
     "end": 370,
     "category": "eastern philosopher",
