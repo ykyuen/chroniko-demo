@@ -3,7 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chroniko example</title>
+  <title>Rationalism vs empiricism – Chroniko Demo</title>
+  <meta name="description" content="An interactive, zoomable timeline of the continental rationalists (Descartes, Spinoza, Leibniz) and the British empiricists (Locke, Berkeley, Hume) in the debate over where knowledge comes from, built with Chroniko.">
+  <meta name="keywords" content="rationalism, empiricism, Descartes, Spinoza, Leibniz, Locke, Berkeley, Hume, early modern philosophy, philosophy timeline, Chroniko">
+  <meta name="author" content="ykyuen">
+  <link rel="canonical" href="https://chroniko.ykyuen.info/rationalism-vs-empiricism/">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chroniko Demo">
+  <meta property="og:title" content="Rationalism vs empiricism – Chroniko Demo">
+  <meta property="og:description" content="An interactive, zoomable timeline of the continental rationalists and the British empiricists in the debate over where knowledge comes from.">
+  <meta property="og:url" content="https://chroniko.ykyuen.info/rationalism-vs-empiricism/">
+  <meta property="og:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rationalism vs empiricism – Chroniko Demo">
+  <meta name="twitter:description" content="An interactive, zoomable timeline of the continental rationalists and the British empiricists in the debate over where knowledge comes from.">
+  <meta name="twitter:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
   <!-- Light mode favicons (fallback) -->
   <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
@@ -78,7 +93,7 @@
     const zhEvents = zhDescartes.concat(zhSpinoza, zhLeibniz, zhJohnLocke, zhGeorgeBerkeley, zhDavidHume);
     const params = new URLSearchParams(location.search);
     const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
-    const language = params.get('lang') ?? 'zh-Hant';
+    const language = params.get('lang') ?? 'en';
 
     // language switcher
     const langSelect = document.querySelector('#lang');
