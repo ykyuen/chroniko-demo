@@ -1,0 +1,6 @@
+# Chroniko Demo – https://chroniko.ykyuen.info/
+# All search engines are welcome to crawl and index the whole site.
+User-agent: *
+Allow: /
+
+Sitemap: https://chroniko.ykyuen.info/sitemap.xml
