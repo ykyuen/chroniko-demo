@@ -210,10 +210,22 @@
     const zhEvents = zhDescartes.concat(zhSpinoza, zhLeibniz, zhJohnLocke, zhGeorgeBerkeley, zhDavidHume);
     const params = new URLSearchParams(location.search);
     const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
-    const language = params.get('lang') ?? 'en';
+
+    // language: only codes offered in the dropdown (any case), otherwise English,
+    // since Chroniko throws on a language it doesn't know
+    const langSelect = document.querySelector('#lang');
+    const requestedLang = params.get('lang');
+    const language = [...langSelect.options].map((o) => o.value)
+      .find((code) => code.toLowerCase() === requestedLang?.toLowerCase()) ?? 'en';
+    if (requestedLang !== null && requestedLang !== language) {
+      // correct the address bar so the bad value isn't passed on in shared links
+      const url = new URL(location.href);
+      if (language === 'en' && requestedLang.toLowerCase() !== 'en') url.searchParams.delete('lang');
+      else url.searchParams.set('lang', language);
+      history.replaceState(history.state, '', url);
+    }
 
     // language switcher
-    const langSelect = document.querySelector('#lang');
     langSelect.value = language;
     langSelect.addEventListener('change', () => {
       const url = new URL(location.href);
