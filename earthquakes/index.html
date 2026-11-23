@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live earthquakes – Chroniko Demo</title>
+  <meta name="description" content="A live, zoomable timeline of the world's earthquakes over the past 24 hours, updated every minute from the USGS feed, built with Chroniko.">
+  <meta name="keywords" content="earthquakes, live earthquake map, earthquake timeline, USGS, real-time, live timeline, Chroniko">
+  <meta name="author" content="ykyuen">
+  <link rel="canonical" href="https://chroniko.ykyuen.info/earthquakes/">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chroniko Demo">
+  <meta property="og:title" content="Live earthquakes – Chroniko Demo">
+  <meta property="og:description" content="A live timeline of the world's earthquakes over the past 24 hours, updated every minute from the USGS feed.">
+  <meta property="og:url" content="https://chroniko.ykyuen.info/earthquakes/">
+  <meta property="og:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live earthquakes – Chroniko Demo">
+  <meta name="twitter:description" content="A live timeline of the world's earthquakes over the past 24 hours, updated every minute from the USGS feed.">
+  <meta name="twitter:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
+  <!-- Default favicon for browsers and crawlers that ignore the media queries below -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <!-- Light mode favicons (fallback) -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light-32.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-light-180.png" media="(prefers-color-scheme: light)">
+  <!-- Dark mode favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-dark-32.ico" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://chroniko.ykyuen.info/earthquakes/",
+        "url": "https://chroniko.ykyuen.info/earthquakes/",
+        "name": "Live earthquakes",
+        "description": "A live, zoomable timeline of the world's earthquakes over the past 24 hours, updated every minute from the USGS feed, built with Chroniko.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://chroniko.ykyuen.info/#website" },
+        "primaryImageOfPage": "https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png",
+        "about": [
+          { "@type": "Thing", "name": "Earthquakes" },
+          { "@type": "Thing", "name": "Seismology" }
+        ],
+        "mentions": { "@id": "https://chroniko.ykyuen.info/#chroniko" },
+        "citation": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
+        "breadcrumb": { "@id": "https://chroniko.ykyuen.info/earthquakes/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://chroniko.ykyuen.info/earthquakes/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Chroniko Demo", "item": "https://chroniko.ykyuen.info/" },
+          { "@type": "ListItem", "position": 2, "name": "Live earthquakes", "item": "https://chroniko.ykyuen.info/earthquakes/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Chroniko stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.9.0/dist/chroniko.min.css">
+  <link rel="stylesheet" href="/css/demo.css">
+  <style>
+    .chroniko { --ck-height: 720px; }
+    .feed-status { margin: 0 0 12px; font-size: 0.85em; }
+    .feed-status.error { opacity: 1; color: #c0392b; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="home-link" href="../">← Back to home</a>
+    <h1>Live earthquakes</h1>
+    <p>Every earthquake recorded worldwide in the past 24 hours, from the U.S. Geological Survey, checked for new ones every minute. New earthquakes flash as they arrive, and the view follows the current time, marked by the red line; drag to look back, and press <strong>● Live</strong> to return. Magnitudes are often revised in the first minutes, and the timeline follows. Use the toolbar to switch between your local time and UTC, or click a region's tag to select all its earthquakes. Most small earthquakes are in the United States, where the monitoring network is densest.</p>
+    <div class="controls">
+      <label for="lang">Language</label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="yue">粵語</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+      </select>
+      <p class="lang-note">Earthquake details come from the USGS feed in English. Other languages translate the timeline's interface (buttons, dates and durations), and Chinese also the magnitude categories.</p>
+    </div>
+    <p id="feed-status" class="feed-status" role="status">Loading the past 24 hours of earthquakes from USGS…</p>
+    <div id="timeline"></div>
+
+    <section class="sources">
+      <h2>Sources</h2>
+      <p>Earthquake data: U.S. Geological Survey, Earthquake Hazards Program. Locations marked automatic are computed by software and may change once a seismologist reviews them. This is a demo of a timeline library, not a warning service: for tsunami and earthquake alerts, follow your local authorities.</p>
+      <ul>
+        <li><a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php">USGS GeoJSON summary feeds</a>: the past day's and past hour's earthquakes, refreshed every minute.</li>
+        <li><a href="https://earthquake.usgs.gov/earthquakes/map/">USGS Latest Earthquakes map</a>: each earthquake on the timeline links to its USGS event page.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="/js/load-error.js"></script>
+  <script type="module" onerror="showTimelineError()">
+    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.9.0/dist/chroniko.min.js';
+    import { initLanguage } from '/js/language.js';
+    import { loadEarthquakes } from './usgs.js';
+
+    const params = new URLSearchParams(location.search);
+    const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
+
+    // language from ?lang= (falls back to English) and the language dropdown
+    const language = initLanguage(document.querySelector('#lang'));
+
+    // feed status under the controls
+    const status = document.querySelector('#feed-status');
+    const showStatus = ({ ok, count, at, error }) => {
+      status.classList.toggle('error', !ok);
+      if (ok) {
+        status.textContent = `${count} earthquakes in the past 24 hours · USGS feed of ${at.toLocaleTimeString()} · checked every minute`;
+      } else {
+        console.error(error);
+        status.textContent = 'Couldn’t reach the USGS feed. Trying again every minute…';
+      }
+    };
+
+    // category labels (the categories are magnitude bands, see usgs.js)
+    const zhCategoryLabels = {
+      'strong (M6+)': '強烈（6級以上）',
+      'moderate (M5–5.9)': '中等（5至5.9級）',
+      'light (M4–4.9)': '輕微（4至4.9級）',
+      'minor (M2–3.9)': '小型（2至3.9級）',
+      'micro (below M2)': '微小（2級以下）'
+    };
+    const categoryLabels = {
+      'zh-Hant': zhCategoryLabels,
+      'zh-Hans': zhCategoryLabels,
+      'yue': zhCategoryLabels,
+    };
+
+    // stronger is redder; the many small earthquakes stay quiet
+    const colors = {
+      'strong (M6+)': '#922b21',
+      'moderate (M5–5.9)': '#d35400',
+      'light (M4–4.9)': '#e67e22',
+      'minor (M2–3.9)': '#d4ac0d',
+      'micro (below M2)': '#95a5a6'
+    };
+
+    const { events, source } = await loadEarthquakes({ onStatus: showStatus });
+    const now = Date.now();
+
+    window.timeline = new Chroniko('#timeline', {
+      events,
+      source,
+      timeScale: 'clock',
+      timeZones: ['local', 'UTC'],
+      // follow now, showing the last 6 hours; keep the past day
+      start: now - 6 * 60 * 60_000,
+      end: now,
+      follow: true,
+      retain: 24 * 60 * 60_000,
+      maxEvents: 2000,
+      colors,
+      // legend strongest first, whichever band's earthquake came first
+      categoryOrder: Object.keys(colors),
+      storyPosition,
+      language,
+      ...(categoryLabels[language] && { categoryLabels: categoryLabels[language] }),
+      split: 0.7,
+      syncUrl: true,
+      textSizeToggle: true,
+      onSelectionChange: (events) => console.log('selection', events),
+    });
+  </script>
+</body>
+</html>

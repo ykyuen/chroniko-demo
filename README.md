@@ -11,8 +11,9 @@ It's a plain static site: HTML, CSS and JavaScript, with Chroniko loaded from js
 | [Philosophers in history](https://chroniko.ykyuen.info/philosophers-in-history/) | Eastern and western philosophers alongside Chinese dynasties and western historical events. The basics: categories, the story view, translated category labels and shareable links. |
 | [Rationalism vs empiricism](https://chroniko.ykyuen.info/rationalism-vs-empiricism/) | The continental rationalists and the British empiricists. Event tags with translated labels, and custom category colors. |
 | [Apollo 11](https://chroniko.ykyuen.info/apollo-11/) | The Moon landing mission, from launch to splashdown. The clock time scale (times to the minute and second, in UTC) and a time zone menu with Florida, Houston and the viewer's own time. |
+| [Live earthquakes](https://chroniko.ykyuen.info/earthquakes/) | Every earthquake recorded worldwide in the past 24 hours, polled every minute from the [USGS feed](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php). Live mode: following now, new events flashing in, revised magnitudes, and dropping events older than a day. Its feed code is in `earthquakes/usgs.js`; it has no data files and no static event list. |
 
-Both demos have a language dropdown (also `?lang=<code>`) with Chroniko's 13 built-in languages. Event text is available in English and Traditional Chinese (`zh-Hant`, also used for `zh-Hans` and `yue`); the other languages translate the timeline's interface only. Add `?story=below` to show the story under the timeline instead of beside it.
+Every demo has a language dropdown (also `?lang=<code>`) with Chroniko's 13 built-in languages. Event text is available in English and Traditional Chinese (`zh-Hant`, also used for `zh-Hans` and `yue`), except in the earthquake demo, whose text comes from USGS in English; the other languages translate the timeline's interface only. Add `?story=below` to show the story under the timeline instead of beside it.
 
 ## Running locally
 
