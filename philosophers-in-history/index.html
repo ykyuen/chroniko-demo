@@ -67,28 +67,9 @@
   </script>
   <!-- Chroniko stylesheet -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.css">
+  <link rel="stylesheet" href="/css/demo.css">
   <style>
-    :root { color-scheme: light dark; }
-    body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }
-    main { margin: 0 auto; }
-    .home-link { display: inline-block; margin: 0 0 12px; color: inherit; opacity: 0.7; text-decoration: none; }
-    .home-link:hover { opacity: 1; text-decoration: underline; }
-    h1 { margin: 0 0 4px; }
-    p { margin: 0 0 16px; opacity: 0.7; }
-    .load-error { margin: 16px 0; padding: 16px; border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: 8px; line-height: 1.5; }
-    .load-error a { color: inherit; }
-    .lang-note { margin: 6px 0 16px; font-size: 0.85em; }
-    .event-list { margin: 32px 0 0; }
-    .event-list summary { cursor: pointer; }
-    .event-list summary h2 { display: inline; font-size: 1.1em; }
-    .event-list h3 { margin: 20px 0 8px; font-size: 1em; }
-    .event-list ul { margin: 0; padding-left: 20px; }
-    .event-list li { margin: 0 0 6px; line-height: 1.4; }
-    .event-list a { color: inherit; }
-    .event-list .dates { opacity: 0.7; }
-    .chroniko {
-      --ck-height: 960px;
-    }
+    .chroniko { --ck-height: 960px; }
   </style>
 </head>
 <body>
@@ -263,24 +244,10 @@
     <!-- event-list:end -->
   </main>
 
-  <script>
-    // Show a message instead of a blank space if the timeline fails to load:
-    // the library or a data file can't be fetched (the module script's error event),
-    // or loading the data or building the timeline throws (the window's error event).
-    function showTimelineError() {
-      // Already built, so a later error isn't a load failure. Until the page sets it,
-      // window.timeline is the <div id="timeline"> itself (browsers expose ids as globals).
-      if (window.timeline && !(window.timeline instanceof Element)) return;
-      const el = document.querySelector('#timeline');
-      if (!el || el.querySelector('.load-error')) return;
-      el.innerHTML = '<div class="load-error" role="alert"><strong>The timeline couldn\u2019t load.</strong> '
-        + 'Please check your connection and <a href="">reload the page</a>. '
-        + 'The full list of events is still available below.</div>';
-    }
-    window.addEventListener('error', showTimelineError);
-  </script>
+  <script src="/js/load-error.js"></script>
   <script type="module" onerror="showTimelineError()">
     import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.js';
+    import { initLanguage } from '/js/language.js';
 
     // en data
     import { chineseDynasties } from './data/en/chinese-dynasties.js';
@@ -299,27 +266,8 @@
     const params = new URLSearchParams(location.search);
     const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
 
-    // language: only codes offered in the dropdown (any case), otherwise English,
-    // since Chroniko throws on a language it doesn't know
-    const langSelect = document.querySelector('#lang');
-    const requestedLang = params.get('lang');
-    const language = [...langSelect.options].map((o) => o.value)
-      .find((code) => code.toLowerCase() === requestedLang?.toLowerCase()) ?? 'en';
-    if (requestedLang !== null && requestedLang !== language) {
-      // correct the address bar so the bad value isn't passed on in shared links
-      const url = new URL(location.href);
-      if (language === 'en' && requestedLang.toLowerCase() !== 'en') url.searchParams.delete('lang');
-      else url.searchParams.set('lang', language);
-      history.replaceState(history.state, '', url);
-    }
-
-    // language switcher
-    langSelect.value = language;
-    langSelect.addEventListener('change', () => {
-      const url = new URL(location.href);
-      url.searchParams.set('lang', langSelect.value);
-      location.assign(url);
-    });
+    // language from ?lang= (falls back to English) and the language dropdown
+    const language = initLanguage(document.querySelector('#lang'));
 
     // category labels
     // (every Chinese option uses the Traditional Chinese data, so it gets these labels too)
