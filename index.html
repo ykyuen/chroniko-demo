@@ -29,6 +29,54 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://chroniko.ykyuen.info/#website",
+        "url": "https://chroniko.ykyuen.info/",
+        "name": "Chroniko Demo",
+        "description": "Example timelines built with Chroniko, a JavaScript library for rendering historical events on a single zoomable time axis.",
+        "inLanguage": "en",
+        "author": { "@id": "https://chroniko.ykyuen.info/#author" },
+        "about": { "@id": "https://chroniko.ykyuen.info/#chroniko" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://chroniko.ykyuen.info/#author",
+        "name": "ykyuen",
+        "url": "https://github.com/ykyuen"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://chroniko.ykyuen.info/#chroniko",
+        "name": "Chroniko",
+        "description": "Render events on a single zoomable time axis, from historical dates across millennia to deploys and incidents timed to the second. Plain HTML, CSS and JavaScript, no dependencies.",
+        "url": "https://github.com/ykyuen/chroniko",
+        "codeRepository": "https://github.com/ykyuen/chroniko",
+        "programmingLanguage": "JavaScript",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "author": { "@id": "https://chroniko.ykyuen.info/#author" },
+        "sameAs": "https://www.npmjs.com/package/chroniko"
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://chroniko.ykyuen.info/",
+        "url": "https://chroniko.ykyuen.info/",
+        "name": "Chroniko Demo – Zoomable historical timelines in JavaScript",
+        "isPartOf": { "@id": "https://chroniko.ykyuen.info/#website" },
+        "primaryImageOfPage": "https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png",
+        "hasPart": [
+          { "@id": "https://chroniko.ykyuen.info/philosophers-in-history/" },
+          { "@id": "https://chroniko.ykyuen.info/rationalism-vs-empiricism/" }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     :root { color-scheme: light dark; }
     body { margin: 0; padding: 24px 16px; font-family: system-ui, sans-serif; }

@@ -29,6 +29,40 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://chroniko.ykyuen.info/philosophers-in-history/",
+        "url": "https://chroniko.ykyuen.info/philosophers-in-history/",
+        "name": "Philosophers in history",
+        "description": "An interactive, zoomable timeline of eastern and western philosophers alongside Chinese dynasties and western historical events, built with Chroniko.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://chroniko.ykyuen.info/#website" },
+        "primaryImageOfPage": "https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png",
+        "about": [
+          { "@type": "Thing", "name": "History of philosophy" },
+          { "@type": "Thing", "name": "Eastern philosophy" },
+          { "@type": "Thing", "name": "Western philosophy" },
+          { "@type": "Thing", "name": "Dynasties of China" }
+        ],
+        "mentions": { "@id": "https://chroniko.ykyuen.info/#chroniko" },
+        "breadcrumb": { "@id": "https://chroniko.ykyuen.info/philosophers-in-history/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://chroniko.ykyuen.info/philosophers-in-history/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Chroniko Demo", "item": "https://chroniko.ykyuen.info/" },
+          { "@type": "ListItem", "position": 2, "name": "Philosophers in history", "item": "https://chroniko.ykyuen.info/philosophers-in-history/" }
+        ]
+      }
+    ]
+  }
+  </script>
   <!-- Chroniko stylesheet -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.css">
   <style>
