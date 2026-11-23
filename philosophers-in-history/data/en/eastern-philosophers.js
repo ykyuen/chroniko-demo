@@ -90,6 +90,7 @@ export const easternPhilosophers = [
     "url": "https://en.wikipedia.org/wiki/Xunzi_(philosopher)"
   },
   {
+    "id": "han-feizi",
     "title": "Han Feizi",
     "start": -280,
     "end": -233,
