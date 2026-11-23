@@ -82,6 +82,8 @@
     .home-link:hover { opacity: 1; text-decoration: underline; }
     h1 { margin: 0 0 4px; }
     p { margin: 0 0 16px; opacity: 0.7; }
+    .load-error { margin: 16px 0; padding: 16px; border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: 8px; line-height: 1.5; }
+    .load-error a { color: inherit; }
     .lang-note { margin: 6px 0 16px; font-size: 0.85em; }
     .event-list { margin: 32px 0 0; }
     .event-list summary { cursor: pointer; }
@@ -189,7 +191,23 @@
     <!-- event-list:end -->
   </main>
 
-  <script type="module">
+  <script>
+    // Show a message instead of a blank space if the timeline fails to load:
+    // the library or a data file can't be fetched (the module script's error event),
+    // or loading the data or building the timeline throws (the window's error event).
+    function showTimelineError() {
+      // Already built, so a later error isn't a load failure. Until the page sets it,
+      // window.timeline is the <div id="timeline"> itself (browsers expose ids as globals).
+      if (window.timeline && !(window.timeline instanceof Element)) return;
+      const el = document.querySelector('#timeline');
+      if (!el || el.querySelector('.load-error')) return;
+      el.innerHTML = '<div class="load-error" role="alert"><strong>The timeline couldn\u2019t load.</strong> '
+        + 'Please check your connection and <a href="">reload the page</a>. '
+        + 'The full list of events is still available below.</div>';
+    }
+    window.addEventListener('error', showTimelineError);
+  </script>
+  <script type="module" onerror="showTimelineError()">
     import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.js';
 
     // en data
