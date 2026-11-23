@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apollo 11 – Chroniko Demo</title>
+  <meta name="description" content="An interactive, zoomable timeline of the Apollo 11 mission, from launch to splashdown, timed to the minute and shown in UTC, Florida, Houston or your own time zone, built with Chroniko.">
+  <meta name="keywords" content="Apollo 11, Moon landing, mission timeline, Neil Armstrong, Buzz Aldrin, Michael Collins, time zones, interactive timeline, Chroniko">
+  <meta name="author" content="ykyuen">
+  <link rel="canonical" href="https://chroniko.ykyuen.info/apollo-11/">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chroniko Demo">
+  <meta property="og:title" content="Apollo 11 – Chroniko Demo">
+  <meta property="og:description" content="An interactive, zoomable timeline of the Apollo 11 mission, from launch to splashdown, timed to the minute and shown in any time zone.">
+  <meta property="og:url" content="https://chroniko.ykyuen.info/apollo-11/">
+  <meta property="og:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apollo 11 – Chroniko Demo">
+  <meta name="twitter:description" content="An interactive, zoomable timeline of the Apollo 11 mission, from launch to splashdown, timed to the minute and shown in any time zone.">
+  <meta name="twitter:image" content="https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png">
+  <!-- Default favicon for browsers and crawlers that ignore the media queries below -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <!-- Light mode favicons (fallback) -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-light-32.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-light-16.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light-32.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-light-180.png" media="(prefers-color-scheme: light)">
+  <!-- Dark mode favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon-dark-32.ico" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dark-16.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dark-32.png" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-dark-180.png" media="(prefers-color-scheme: dark)">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://chroniko.ykyuen.info/apollo-11/",
+        "url": "https://chroniko.ykyuen.info/apollo-11/",
+        "name": "Apollo 11",
+        "description": "An interactive, zoomable timeline of the Apollo 11 mission, from launch to splashdown, timed to the minute and shown in UTC, Florida, Houston or your own time zone, built with Chroniko.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://chroniko.ykyuen.info/#website" },
+        "primaryImageOfPage": "https://chroniko.ykyuen.info/images/chroniko-screenshot-1200x630.png",
+        "about": [
+          { "@type": "Event", "name": "Apollo 11", "startDate": "1969-07-16T13:32:00Z", "endDate": "1969-07-24T16:50:35Z", "sameAs": "https://en.wikipedia.org/wiki/Apollo_11" },
+          { "@type": "Thing", "name": "Moon landing" }
+        ],
+        "citation": [
+          "https://en.wikipedia.org/wiki/Apollo_11",
+          "https://apollojournals.org/alsj/a11/a11.html"
+        ],
+        "mentions": [
+          { "@id": "https://chroniko.ykyuen.info/#chroniko" },
+          { "@type": "Person", "name": "Neil Armstrong", "sameAs": "https://en.wikipedia.org/wiki/Neil_Armstrong" },
+          { "@type": "Person", "name": "Buzz Aldrin", "sameAs": "https://en.wikipedia.org/wiki/Buzz_Aldrin" },
+          { "@type": "Person", "name": "Michael Collins", "sameAs": "https://en.wikipedia.org/wiki/Michael_Collins_(astronaut)" }
+        ],
+        "breadcrumb": { "@id": "https://chroniko.ykyuen.info/apollo-11/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://chroniko.ykyuen.info/apollo-11/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Chroniko Demo", "item": "https://chroniko.ykyuen.info/" },
+          { "@type": "ListItem", "position": 2, "name": "Apollo 11", "item": "https://chroniko.ykyuen.info/apollo-11/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Chroniko stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.css">
+  <link rel="stylesheet" href="/css/demo.css">
+  <style>
+    .chroniko { --ck-height: 720px; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="home-link" href="../">← Back to home</a>
+    <h1>Apollo 11</h1>
+    <p>Eight days from launch to splashdown, timed to the minute. Times are in UTC; use the time zone menu in the toolbar to see them in Florida time (the launch site), Houston time (Mission Control) or your own. Drag to pan; Ctrl/⌘ + scroll or pinch to zoom from the whole mission down to the seconds around the landing. Click events to add them to the story, or click a crew member's tag to select everything they did. The address bar keeps your view, selection and time zone, so you can share it as a link.</p>
+    <div class="controls">
+      <label for="lang">Language</label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="yue">粵語</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="nl">Nederlands</option>
+      </select>
+      <p class="lang-note">Event text is available in English and Traditional Chinese. Other languages translate the timeline's interface (buttons, dates and durations) only.</p>
+    </div>
+    <div id="timeline"></div>
+    <!-- event-list:start (generated by scripts/build-event-lists.mjs, do not edit by hand) -->
+    <section class="event-list">
+      <details>
+        <summary><h2>All 21 events in this timeline</h2></summary>
+        <h3>Mission phase</h3>
+        <ul>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11">Launch and Earth orbit</a></strong> <span class="dates">(16 Jul 1969, 13:32:00 – 16:16:16 UTC)</span> Apollo 11 lifts off and reaches Earth orbit about 12 minutes later. The crew and Mission Control check the spacecraft for one and a half orbits before heading for the Moon.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11">Coast to the Moon</a></strong> <span class="dates">(16 Jul 1969, 16:16:16 – 19 Jul 1969, 17:21:50 UTC)</span> Pushed out of Earth orbit by the Saturn V's third stage, the spacecraft coasts for about three days to the Moon.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11">Lunar orbit</a></strong> <span class="dates">(19 Jul 1969, 17:21:50 – 22 Jul 1969, 04:55:42 UTC)</span> Columbia circles the Moon 30 times, while Eagle goes down to the surface and comes back.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11">Coast back to Earth</a></strong> <span class="dates">(22 Jul 1969, 04:55:42 – 24 Jul 1969, 16:50:35 UTC)</span> The crew coasts home for about two and a half days, ending in splashdown in the Pacific Ocean.</li>
+        </ul>
+        <h3>Saturn V</h3>
+        <ul>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Saturn_V">Launch</a></strong> <span class="dates">(16 Jul 1969, 13:32:00 UTC)</span> A Saturn V rocket lifts Neil Armstrong, Buzz Aldrin and Michael Collins off Launch Complex 39A at Kennedy Space Center, Florida, at 9:32 a.m. local time.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Trans-lunar_injection">Translunar injection</a></strong> <span class="dates">(16 Jul 1969, 16:16:16 UTC)</span> The rocket's third stage fires again for about six minutes, sending the spacecraft out of Earth orbit towards the Moon.</li>
+        </ul>
+        <h3>Columbia</h3>
+        <ul>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_command_and_service_module">Lunar orbit insertion</a></strong> <span class="dates">(19 Jul 1969, 17:21:50 UTC)</span> Behind the Moon and out of radio contact with Earth, Columbia's engine fires to slow the spacecraft into lunar orbit.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Michael_Collins_(astronaut)">Collins flies Columbia alone</a></strong> <span class="dates">(20 Jul 1969, 17:44:00 – 21 Jul 1969, 21:35:00 UTC)</span> Michael Collins orbits the Moon alone in the command module while Armstrong and Aldrin are on the surface, cut off from everyone each time he passes behind the Moon.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_command_and_service_module">Trans-Earth injection</a></strong> <span class="dates">(22 Jul 1969, 04:55:42 UTC)</span> Again behind the Moon, Columbia's engine fires for about two and a half minutes to send the crew home.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/USS_Hornet_(CV-12)">Splashdown</a></strong> <span class="dates">(24 Jul 1969, 16:50:35 UTC)</span> Columbia lands in the Pacific Ocean under its parachutes, and the crew is recovered by the aircraft carrier USS Hornet. The mission lasted 8 days, 3 hours and 18 minutes.</li>
+        </ul>
+        <h3>Eagle</h3>
+        <ul>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Lunar_Module">Eagle undocks</a></strong> <span class="dates">(20 Jul 1969, 17:44:00 UTC)</span> With Armstrong and Aldrin aboard, the lunar module Eagle separates from Columbia to begin its descent.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Lunar_Module">Powered descent</a></strong> <span class="dates">(20 Jul 1969, 20:05 – 20:17:40 UTC)</span> Eagle's descent engine fires for the last 12 minutes down to the surface.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Guidance_Computer">1202 program alarm</a></strong> <span class="dates">(20 Jul 1969, 20:10 UTC)</span> The overloaded guidance computer raises a series of alarms during the descent. Mission Control decides within seconds that it is safe to continue.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Tranquility_Base">The Eagle has landed</a></strong> <span class="dates">(20 Jul 1969, 20:17:40 UTC)</span> Armstrong steers past a field of boulders and lands in the Sea of Tranquility with little fuel to spare: &quot;Houston, Tranquility Base here. The Eagle has landed.&quot;</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Tranquility_Base">Eagle on the Moon</a></strong> <span class="dates">(20 Jul 1969, 20:17:40 – 21 Jul 1969, 17:54:00 UTC)</span> Eagle stays at Tranquility Base for about 21 and a half hours, including the moonwalk and a rest period before the return to orbit.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Lunar_Module">Lunar liftoff</a></strong> <span class="dates">(21 Jul 1969, 17:54:00 UTC)</span> Eagle's ascent stage lifts off, using the descent stage as its launch pad and leaving it on the Moon.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Lunar_Module">Eagle docks with Columbia</a></strong> <span class="dates">(21 Jul 1969, 21:35:00 UTC)</span> The ascent stage rejoins Columbia in lunar orbit, and Armstrong and Aldrin move back into the command module with their samples.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_Lunar_Module">Eagle jettisoned</a></strong> <span class="dates">(21 Jul 1969, 23:41:31 UTC)</span> The empty ascent stage is released and left in lunar orbit.</li>
+        </ul>
+        <h3>Moonwalk</h3>
+        <ul>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Apollo_11">Moonwalk</a></strong> <span class="dates">(21 Jul 1969, 02:39:33 – 05:11:13 UTC)</span> From opening Eagle's hatch to closing it again, Armstrong and Aldrin spend about two and a half hours outside, collecting rock samples, setting up experiments and planting a flag.</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Neil_Armstrong">One small step</a></strong> <span class="dates">(21 Jul 1969, 02:56:15 UTC)</span> Neil Armstrong becomes the first person to step onto the Moon: &quot;That's one small step for man, one giant leap for mankind.&quot;</li>
+          <li><strong><a href="https://en.wikipedia.org/wiki/Buzz_Aldrin">Aldrin steps onto the Moon</a></strong> <span class="dates">(21 Jul 1969, 03:14 UTC)</span> Buzz Aldrin follows Armstrong down the ladder and describes the view as &quot;magnificent desolation&quot;.</li>
+        </ul>
+      </details>
+    </section>
+    <!-- event-list:end -->
+    <section class="sources">
+      <h2>Sources</h2>
+      <p>Times are in UTC, as given by these sources. Where they give a time to the second, so does the timeline; the start of powered descent, the 1202 alarm and Aldrin's first step are given to the minute.</p>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Apollo_11">Apollo 11</a>, Wikipedia: launch, lunar orbit insertion, undocking, landing, the moonwalk, lunar liftoff, docking, jettison of the ascent stage, trans-Earth injection and splashdown.</li>
+        <li><a href="https://apollojournals.org/alsj/a11/a11.html">Apollo 11 Lunar Surface Journal</a>, NASA's annotated transcripts of the landing and the moonwalk, timed from launch:
+          <ul>
+            <li><a href="https://apollojournals.org/alsj/a11/a11.landing.html">The Landing</a>: powered descent, the 1202 program alarm and the landing.</li>
+            <li><a href="https://apollojournals.org/alsj/a11/a11.step.html">One Small Step</a>: the hatch opening and the first steps of Armstrong and Aldrin.</li>
+            <li><a href="https://apollojournals.org/alsj/a11/a11.clsout.html">EASEP Deployment and Closeout</a>: the hatch closing at the end of the moonwalk.</li>
+            <li><a href="https://apollojournals.org/alsj/a11/a11.launch.html">The Return to Orbit</a>: lunar liftoff.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="/js/load-error.js"></script>
+  <script type="module" onerror="showTimelineError()">
+    import { Chroniko } from 'https://cdn.jsdelivr.net/npm/chroniko@0.8.0/dist/chroniko.min.js';
+    import { initLanguage } from '/js/language.js';
+
+    // en data
+    import { missionPhases } from './data/en/mission-phases.js';
+    import { saturnV } from './data/en/saturn-v.js';
+    import { columbia } from './data/en/columbia.js';
+    import { eagle } from './data/en/eagle.js';
+    import { moonwalk } from './data/en/moonwalk.js';
+
+    // zh data
+    import { missionPhases as zhMissionPhases } from './data/zh-Hant/mission-phases.js';
+    import { saturnV as zhSaturnV } from './data/zh-Hant/saturn-v.js';
+    import { columbia as zhColumbia } from './data/zh-Hant/columbia.js';
+    import { eagle as zhEagle } from './data/zh-Hant/eagle.js';
+    import { moonwalk as zhMoonwalk } from './data/zh-Hant/moonwalk.js';
+
+    const enEvents = missionPhases.concat(saturnV, columbia, eagle, moonwalk);
+    const zhEvents = zhMissionPhases.concat(zhSaturnV, zhColumbia, zhEagle, zhMoonwalk);
+    const params = new URLSearchParams(location.search);
+    const storyPosition = params.get('story') === 'below' ? 'below' : 'right';
+
+    // language from ?lang= (falls back to English) and the language dropdown
+    const language = initLanguage(document.querySelector('#lang'));
+
+    // category labels
+    // (every Chinese option uses the Traditional Chinese data, so it gets these labels too)
+    const zhCategoryLabels = {
+      'mission phase': '任務階段',
+      'Saturn V': '農神五號',
+      'Columbia': '哥倫比亞號',
+      'Eagle': '鷹號',
+      'moonwalk': '月球漫步'
+    };
+    const categoryLabels = {
+      'zh-Hant': zhCategoryLabels,
+      'zh-Hans': zhCategoryLabels,
+      'yue': zhCategoryLabels,
+    };
+
+    // tag labels: one tag per crew member
+    const zhTagLabels = {
+      'Neil Armstrong': '尼爾·阿姆斯壯',
+      'Buzz Aldrin': '巴茲·艾德林',
+      'Michael Collins': '麥可·柯林斯'
+    };
+    const tagLabels = {
+      'zh-Hant': zhTagLabels,
+      'zh-Hans': zhTagLabels,
+      'yue': zhTagLabels,
+    };
+
+    const colors = {
+      'mission phase': '#7f8c8d',
+      'Saturn V': '#d35400',
+      'Columbia': '#2471a3',
+      'Eagle': '#b7950b',
+      'moonwalk': '#8e44ad'
+    };
+
+    window.timeline = new Chroniko('#timeline', {
+      events: (language === 'yue' || language === 'zh-Hant' || language === 'zh-Hans') ? zhEvents : enEvents,
+      timeScale: 'clock',
+      // the mission's times are given in UTC; the menu adds the launch site (Florida),
+      // Mission Control (Houston) and the viewer's own time
+      timeZone: 'UTC',
+      timeZones: ['UTC', 'America/New_York', 'America/Chicago', 'local'],
+      colors,
+      storyPosition,
+      language,
+      ...(categoryLabels[language] && { categoryLabels: categoryLabels[language] }),
+      ...(tagLabels[language] && { tagLabels: tagLabels[language] }),
+      split: 0.7,
+      syncUrl: true,
+      textSizeToggle: true,
+      onSelectionChange: (events) => console.log('selection', events),
+    });
+  </script>
+</body>
+</html>

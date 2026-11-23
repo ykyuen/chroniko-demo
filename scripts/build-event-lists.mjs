@@ -25,13 +25,35 @@ function parse(value) {
   return { y: Number(m[1]), mo: m[2] && Number(m[2]), d: m[3] && Number(m[3]) };
 }
 
+// Clock-scale dates, in UTC to the minute or second, e.g. "1969-07-21T02:56:15Z"
+const CLOCK = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}:\d{2}(?::\d{2})?)Z$/;
+
 // Same style as Chroniko's formatDate: 2070 BCE, Jan 1739, 31 Mar 1596.
 function formatDate(value) {
   const { y, mo, d } = parse(value);
   return [d, mo && MONTHS[mo - 1], y < 0 ? `${-y} BCE` : y].filter(Boolean).join(' ');
 }
 
+// "21 Jul 1969, 02:39:33 – 05:11:13 UTC", with the end's date only if it's another day
+function formatClockRange(start, end) {
+  const [, y, mo, d, time] = CLOCK.exec(start);
+  const day = `${Number(d)} ${MONTHS[mo - 1]} ${y}`;
+  if (end == null) return `${day}, ${time} UTC`;
+  const [, y2, mo2, d2, time2] = CLOCK.exec(end);
+  const sameDay = y === y2 && mo === mo2 && d === d2;
+  return `${day}, ${time} – ${sameDay ? '' : `${Number(d2)} ${MONTHS[mo2 - 1]} ${y2}, `}${time2} UTC`;
+}
+
+function formatRange(start, end) {
+  if (typeof start === 'string' && CLOCK.test(start)) {
+    if (end != null && !CLOCK.test(end)) throw new Error(`unexpected date format: ${end}`);
+    return formatClockRange(start, end);
+  }
+  return end != null ? `${formatDate(start)} – ${formatDate(end)}` : formatDate(start);
+}
+
 function sortKey(value) {
+  if (typeof value === 'string' && CLOCK.test(value)) return Date.parse(value);
   const { y, mo = 1, d = 1 } = parse(value);
   return y + (mo - 1) / 12 + (d - 1) / 372;
 }
@@ -67,7 +89,7 @@ async function build(demo) {
       const title = e.url
         ? `<a href="${escapeHtml(e.url)}">${escapeHtml(e.title)}</a>`
         : escapeHtml(e.title);
-      const dates = e.end != null ? `${formatDate(e.start)} – ${formatDate(e.end)}` : formatDate(e.start);
+      const dates = formatRange(e.start, e.end);
       const desc = e.description ? ` ${escapeHtml(e.description)}` : '';
       out.push(`          <li><strong>${title}</strong> <span class="dates">(${dates})</span>${desc}</li>`);
     }
@@ -92,4 +114,4 @@ async function build(demo) {
   console.log(`${demo}: ${events.length} events in ${groups.size} categories${next === html ? ' (unchanged)' : ''}`);
 }
 
-for (const demo of ['philosophers-in-history', 'rationalism-vs-empiricism']) await build(demo);
+for (const demo of ['philosophers-in-history', 'rationalism-vs-empiricism', 'apollo-11']) await build(demo);
